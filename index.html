@@ -7,7 +7,7 @@
     <meta name="description" content="The curious Amazon finds featured by Curio Cart Finds." />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
-      :root{--ink:#13231f;--paper:#f4f1e9;--lime:#c8ff3e;--line:#c9cdc1;--muted:#61706b}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Mono",monospace}.wrap{width:min(100%,680px);margin:auto;padding:12px 18px 46px}.mast{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:17px 18px;border:2px solid var(--ink);background:var(--lime)}.eyebrow{font:500 10px/1.2 "DM Mono",monospace;letter-spacing:.12em}.mast h1{margin:0;text-align:right;font:700 clamp(22px,5vw,32px)/.92 Fraunces,serif;letter-spacing:-.06em}.mast p{display:none}.list{display:grid;gap:10px;margin:12px 0}.item{display:grid;grid-template-columns:86px 34px 1fr;align-items:center;min-height:88px;color:inherit;text-decoration:none;border:1.5px solid var(--line);background:#fffdfa;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}.item:hover,.item:focus-visible{transform:translate(-4px,-4px);background:var(--lime);box-shadow:5px 5px 0 var(--ink);outline:0}.thumb{width:86px;height:86px;object-fit:contain;background:#fff;border-right:1.5px solid var(--line)}.num{align-self:stretch;display:grid;place-items:center;border-right:1.5px solid var(--line);font-size:12px;color:var(--muted)}.name{padding:12px 14px;font:600 18px/1.04 Fraunces,serif;letter-spacing:-.035em}.name small{display:block;margin-top:7px;font:500 10px/1.2 "DM Mono",monospace;color:var(--muted);letter-spacing:.06em}.fine{margin:22px 4px 0;color:var(--muted);font-size:10px;line-height:1.5}.fine strong{color:var(--ink)}@media(max-width:390px){.wrap{padding-inline:12px}.mast{padding:14px}.item{grid-template-columns:76px 31px 1fr;min-height:78px}.thumb{width:76px;height:78px}.name{font-size:16px}}
+      :root{--ink:#13231f;--paper:#f4f1e9;--lime:#c8ff3e;--line:#c9cdc1;--muted:#61706b}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Mono",monospace}.wrap{width:min(100%,680px);margin:auto;padding:12px 18px 46px}.mast{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:17px 18px;border:2px solid var(--ink);background:var(--lime)}.eyebrow{font:500 10px/1.2 "DM Mono",monospace;letter-spacing:.12em}.mast h1{margin:0;text-align:right;font:700 clamp(22px,5vw,32px)/.92 Fraunces,serif;letter-spacing:-.06em}.mast p{display:none}.list{display:grid;gap:10px;margin:12px 0}.item{display:grid;grid-template-columns:86px 34px 1fr;align-items:center;min-height:88px;color:inherit;text-decoration:none;border:1.5px solid var(--line);background:#fffdfa;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}.item:hover,.item:focus-visible{transform:translate(-4px,-4px);background:var(--lime);box-shadow:5px 5px 0 var(--ink);outline:0}.thumb{width:86px;height:86px;object-fit:contain;background:#fff;border-right:1.5px solid var(--line)}.num{align-self:stretch;display:grid;place-items:center;border-right:1.5px solid var(--line);font-size:12px;color:var(--muted)}.name{padding:12px 14px;font:600 18px/1.04 Fraunces,serif;letter-spacing:-.035em}.name small{display:block;margin-top:7px;font:500 10px/1.2 "DM Mono",monospace;color:var(--muted);letter-spacing:.06em}.fine{margin:22px 4px 0;color:var(--muted);font-size:10px;line-height:1.5}.fine strong{color:var(--ink)}.visitor-count{margin:12px 4px 0;color:var(--muted);font-size:10px;letter-spacing:.05em}.visitor-count strong{color:var(--ink);font-weight:500}@media(max-width:390px){.wrap{padding-inline:12px}.mast{padding:14px}.item{grid-template-columns:76px 31px 1fr;min-height:78px}.thumb{width:76px;height:78px}.name{font-size:16px}}
     </style>
   </head>
   <body>
@@ -26,7 +26,22 @@
         <a class="item" data-asin="B092DFPQT1" href="https://www.amazon.com/dp/B092DFPQT1"><img class="thumb" src="assets/10-moon-lamp.jpg" alt="RUIXINDA moon lamp" /><span class="num">10</span><span class="name">RUIXINDA Moon Lamp<small>VIEW ON AMAZON →</small></span></a>
         <a class="item" data-asin="B0DN5467YQ" href="https://www.amazon.com/dp/B0DN5467YQ"><img class="thumb" src="assets/11-touchless-soap-dispenser.jpg" alt="Aunmaon touchless soap dispenser" /><span class="num">11</span><span class="name">Aunmaon Touchless Soap Dispenser<small>VIEW ON AMAZON →</small></span></a>
       </section>
+      <p class="visitor-count" hidden>VISITORS TODAY · <strong id="busuanzi_site_uv">—</strong></p>
       <p class="fine"><strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. Replace the current product URLs with your Amazon Associates tracking URLs before publishing this page.</p>
     </main>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const counter = document.querySelector('.visitor-count');
+        const value = document.getElementById('busuanzi_site_uv');
+        const reveal = new MutationObserver(() => {
+          if (value.textContent.trim() && value.textContent.trim() !== '—') {
+            counter.hidden = false;
+            reveal.disconnect();
+          }
+        });
+        reveal.observe(value, { childList: true, subtree: true, characterData: true });
+      });
+    </script>
+    <script defer src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
   </body>
 </html>
