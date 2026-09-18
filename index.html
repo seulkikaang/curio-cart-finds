@@ -26,20 +26,31 @@
         <a class="item" data-asin="B092DFPQT1" href="https://www.amazon.com/dp/B092DFPQT1"><img class="thumb" src="assets/10-moon-lamp.jpg" alt="RUIXINDA moon lamp" /><span class="num">10</span><span class="name">RUIXINDA Moon Lamp<small>VIEW ON AMAZON →</small></span></a>
         <a class="item" data-asin="B0DN5467YQ" href="https://www.amazon.com/dp/B0DN5467YQ"><img class="thumb" src="assets/11-touchless-soap-dispenser.jpg" alt="Aunmaon touchless soap dispenser" /><span class="num">11</span><span class="name">Aunmaon Touchless Soap Dispenser<small>VIEW ON AMAZON →</small></span></a>
       </section>
-      <p class="visitor-count" hidden>VISITORS TODAY · <strong id="busuanzi_site_uv">—</strong></p>
+      <p class="visitor-count" role="status" aria-live="polite">VISITORS TODAY · <strong id="busuanzi_today_uv">LOADING…</strong></p>
       <p class="fine"><strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. Replace the current product URLs with your Amazon Associates tracking URLs before publishing this page.</p>
     </main>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
-        const counter = document.querySelector('.visitor-count');
-        const value = document.getElementById('busuanzi_site_uv');
-        const reveal = new MutationObserver(() => {
-          if (value.textContent.trim() && value.textContent.trim() !== '—') {
-            counter.hidden = false;
-            reveal.disconnect();
+        const value = document.getElementById('busuanzi_today_uv');
+
+        // The counter provider needs an HTTP(S) hostname. A local file preview
+        // has no hostname, so it cannot represent a real visitor count.
+        if (location.protocol === 'file:') {
+          value.textContent = 'VIEW ON THE LIVE PAGE';
+          return;
+        }
+
+        const stopWaiting = window.setTimeout(() => {
+          if (value.textContent === 'LOADING…') value.textContent = 'TEMPORARILY UNAVAILABLE';
+        }, 5000);
+
+        const rendered = new MutationObserver(() => {
+          if (value.textContent !== 'LOADING…') {
+            window.clearTimeout(stopWaiting);
+            rendered.disconnect();
           }
         });
-        reveal.observe(value, { childList: true, subtree: true, characterData: true });
+        rendered.observe(value, { childList: true, subtree: true, characterData: true });
       });
     </script>
     <script defer src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
